@@ -1,6 +1,6 @@
 import apiClient from '../api/axios';
 
-const API_BASE_URL = "https://web-bps-pbw-production.up.railway.app";
+const API_BASE_URL = "https://web-bps-api-production-d18c.up.railway.app";
 const API_CSRF_URL = `${API_BASE_URL}/sanctum/csrf-cookie`;
 const API_LOGIN_URL = `${API_BASE_URL}/api/login`;
 const API_LOGOUT_URL = `${API_BASE_URL}/api/logout`;
