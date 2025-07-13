@@ -18,7 +18,7 @@ export const authService = {
       return response.data;
     } catch (error) {
       throw new Error(
-        'Gagal login: ' + (error.response?.data?.message || 'Terjadi kesalahan')
+        'Gagal login: ' + (error.response?.data?.message || 'Email atau password salah')
       );
     }
   },
