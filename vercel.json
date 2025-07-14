@@ -1,28 +1,17 @@
 {
-    "version": 2,
-    "framework": null,
-   
-   
-    "routes": [
-        {
-            "src": "/api/(.*)",
-            "dest": "/api/index.php"
-        },
-        {
-            "src": "/(.*)",
-            "dest": "/api/index.php"
-        }
-    ],
-    "env": {
-        "APP_ENV": "production",
-        "APP_DEBUG": "true",
-        "APP_URL": "https://bpsntt.vercel.app",
-        "APP_KEY": "base64:rUHrecJLcs/dGh5mTTHEMr8FMjcSgub6uqerVJ7miRs=",
+  "version": 2,
+  "framework": null,
 
-        "CACHE_DRIVER": "array",
-        "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie",
-        
-        "VIEW_COMPILED_PATH": "/tmp"
-    }
+  "env": {
+    "APP_ENV": "production",
+    "APP_DEBUG": "true",
+    "APP_URL": "https://bpsntt.vercel.app",
+    "APP_KEY": "base64:rUHrecJLcs/dGh5mTTHEMr8FMjcSgub6uqerVJ7miRs=",
+
+    "CACHE_DRIVER": "array",
+    "LOG_CHANNEL": "stderr",
+    "SESSION_DRIVER": "cookie",
+
+    "VIEW_COMPILED_PATH": "/tmp"
+  }
 }
