@@ -22,35 +22,41 @@ export default function Navbar({ activePage }) {
   };
 
   return (
-    <nav className="bg-[#001A72] text-white px-6 py-4 flex justify-between items-center fixed top-0 w-full z-50 shadow">
-      <div className="flex items-center gap-3">
-        <img
-          src="https://res.cloudinary.com/dqpffql8l/image/upload/v1752333202/logo-bps_ggwlex.svg"
-          alt="Logo BPS"
-          className="h-10 w-10 object-contain"
-        />
-        <div className="font-bold text-lg">
-          <i>BADAN PUSAT STATISTIK <br /> PROVINSI NUSA TENGGARA TIMUR</i>
+    <header className="fixed top-0 w-full z-50 shadow bg-[#001A72] text-white">
+      <nav className="px-6 py-4 flex justify-between items-center">
+        <div className="flex items-center gap-3">
+          <img
+            src="https://res.cloudinary.com/dqpffql8l/image/upload/v1752333202/logo-bps_ggwlex.svg"
+            alt="Logo BPS"
+            className="h-10 w-10 object-contain"
+          />
+          <div className="font-bold text-lg leading-tight">
+            <i>
+              BADAN PUSAT STATISTIK
+              <br />
+              PROVINSI NUSA TENGGARA TIMUR
+            </i>
+          </div>
         </div>
-      </div>
 
-      <div className="space-x-2 text-sm">
-        {navItems.map(({ key, label, path }) => (
+        <div className="space-x-2 text-sm">
+          {navItems.map(({ key, label, path }) => (
+            <button
+              key={key}
+              onClick={() => navigate(path)}
+              className={navButtonClass(key)}
+            >
+              {label}
+            </button>
+          ))}
           <button
-            key={key}
-            onClick={() => navigate(path)}
-            className={navButtonClass(key)}
+            onClick={handleLogout}
+            className="text-red-300 hover:text-white px-3 py-1 rounded"
           >
-            {label}
+            Logout
           </button>
-        ))}
-        <button
-          onClick={handleLogout}
-          className="text-red-300 hover:text-white px-3 py-1 rounded"
-        >
-          Logout
-        </button>
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </header>
   );
 }
