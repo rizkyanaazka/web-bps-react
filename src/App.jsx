@@ -1,11 +1,7 @@
 // src/App.jsx
 
 import React from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import PublicationListPage from "./components/PublicationListPage";
 import AddPublicationPage from "./components/AddPublicationPage";
@@ -22,23 +18,23 @@ export default function App() {
         <Routes>
           {/* Public Route */}
           <Route path="/login" element={<LoginPage />} />
-          
+
           {/* Protected Routes */}
-          <Route 
-            path="/publications" 
+          <Route
+            path="/publications"
             element={
               <ProtectedRoute>
                 <PublicationListPage />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/publications/add" 
+          <Route
+            path="/publications/add"
             element={
               <ProtectedRoute>
                 <AddPublicationPage />
               </ProtectedRoute>
-            } 
+            }
           />
           <Route
             path="/publications/edit/:id"
@@ -48,7 +44,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          
+
           {/* Redirect Routes */}
           <Route path="/" element={<Navigate to="/publications" replace />} />
           <Route path="*" element={<Navigate to="/publications" replace />} />
