@@ -7,7 +7,7 @@ export const authService = {
       //   await apiClient.get("/sanctum/csrf-cookie");
 
       // Lanjut login
-      const response = await apiClient.post("/login", { email, password });
+      const response = await apiClient.post("/api/login", { email, password });
       return response.data;
     } catch (error) {
       throw new Error(
@@ -18,7 +18,7 @@ export const authService = {
 
   async logout() {
     try {
-      const response = await apiClient.post("/logout");
+      const response = await apiClient.post("/api/logout");
       return response.data;
     } catch (error) {
       throw new Error(
