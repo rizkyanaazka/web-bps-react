@@ -10,28 +10,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   const location = useLocation();
-  const navigate = useNavigate();
+
   const isLoginPage = location.pathname === "/login";
-const handleLogout = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      if (token) {
-        await apiClient.post(
-          "/api/logout",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-      }
-      localStorage.removeItem("token");
-      navigate("/login");
-    } catch (err) {
-      alert("Gagal logout: " + err.message);
-    }
-  };
 
   return (
     <div className="bg-gray-100 min-h-screen font-sans">
