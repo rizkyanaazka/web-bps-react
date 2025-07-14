@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { usePublications } from '../hooks/usePublications';
 import { useNavigate } from 'react-router-dom';
 
 export default function PublicationListPage() {
-  const { publications } = usePublications();
+  const { publications, fetchPublications } = usePublications();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchPublications();
+  }, []);
 
   const [showModal, setShowModal] = useState(false);
   const [modalPub, setModalPub] = useState(null);
