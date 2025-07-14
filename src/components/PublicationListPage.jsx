@@ -79,7 +79,7 @@ export default function PublicationListPage() {
   return (
     <div>
       <div
-        className="h-40 flex items-center justify-center text-white text-2xl font-bold mb-6"
+        className="h-40 flex items-center justify-center text-white text-2xl font-bold mb-6 mt-16"
         style={{
           backgroundImage:
             "url('https://res.cloudinary.com/dqpffql8l/image/upload/v1752333201/bg-title_x6ewpx.png')",
