@@ -1,17 +1,43 @@
 import React from "react";
-
-export default function Navbar({ onNavigate, onLogout, activePage }) {
-  const navButtonClass = (target) =>
-    `px-3 py-1 rounded ${
-      activePage === target
-        ? "bg-white text-blue-800 font-semibold"
-        : "text-white hover:bg-blue-700"
-    }`;
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from '../hooks/useAuth';
 
   const navItems = [
     { key: "publications", label: "Daftar" },
     { key: "add", label: "Tambah" },
+     { id: 'logout', label: 'Logout', path: "/logout" },
   ];
+
+
+export default function Navbar() {
+ const location = useLocation();
+ const navigate = useNavigate();
+  const { logoutAction } = useAuth();
+const navButtonClass = (target) =>
+  `px-3 py-1 rounded ${
+    (target === "publications" && location.pathname === "/publications") ||
+    (target === "add" && location.pathname.startsWith("/publications/add"))
+      ? "bg-white text-blue-800 font-semibold"
+      : "text-white hover:bg-blue-700"
+  }`;
+
+    const handleNavigate = (key) => {
+    if (key === "publications") navigate("/publications");
+    if (key === "add") navigate("/publications/add");
+  };
+
+  const handleLogout = async () => {
+        try {
+            await logoutAction();
+            navigate("/login");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
+    if (location.pathname === "/login") {
+        return null;
+    }
 
   return (
     <nav className="bg-[#001A72] text-white px-6 py-4 flex justify-between items-center fixed top-0 w-full z-50 shadow">
@@ -30,14 +56,14 @@ export default function Navbar({ onNavigate, onLogout, activePage }) {
         {navItems.map(({ key, label }) => (
           <button
             key={key}
-            onClick={() => onNavigate(key)}
+            onClick={() => handleNavigate(key)}
             className={navButtonClass(key)}
           >
             {label}
           </button>
         ))}
         <button
-          onClick={onLogout}
+          onClick={handleLogout}
           className="text-red-300 hover:text-white px-3 py-1 rounded"
         >
           Logout
