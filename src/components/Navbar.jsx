@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from "../hooks/useAuth";
 
 const navItems = [
-  { id: 'publications', label: 'Daftar Publikasi', path: "/publications" },
-  { id: 'add', label: 'Tambah Publikasi', path: "/publications/add" },
-  { id: 'logout', label: 'Logout', path: "/logout" },
+  { id: "publications", label: "Daftar Publikasi", path: "/publications" },
+  { id: "add", label: "Tambah Publikasi", path: "/publications/add" },
+  { id: "logout", label: "Logout", path: "/logout" },
 ];
 
 export default function Navbar() {
@@ -37,7 +37,9 @@ export default function Navbar() {
           className="h-10 w-10 object-contain"
         />
         <div className="font-bold text-lg">
-          <i>BADAN PUSAT STATISTIK <br /> PROVINSI NUSA TENGGARA TIMUR</i>
+          <i>
+            BADAN PUSAT STATISTIK <br /> PROVINSI NUSA TENGGARA TIMUR
+          </i>
         </div>
       </div>
 
@@ -45,8 +47,10 @@ export default function Navbar() {
         {navItems.map((item) => {
           const isActive =
             location.pathname === item.path ||
-            (item.id === "add" && location.pathname.startsWith("/publications/add")) ||
-            (item.id === "publications" && location.pathname === "/publications");
+            (item.id === "add" &&
+              location.pathname.startsWith("/publications/add")) ||
+            (item.id === "publications" &&
+              location.pathname === "/publications");
 
           if (item.id === "logout") {
             return (
@@ -64,10 +68,10 @@ export default function Navbar() {
             <Link
               key={item.id}
               to={item.path}
-              className={`px-3 py-2 text-sm font-semibold transition-all duration-300 border border-transparent cursor-pointer ${
+              className={`px-3 py-2 text-sm font-semibold transition-all duration-300 cursor-pointer ${
                 isActive
-                  ? "bg-white text-sky-900 shadow-md font-bold h-full flex items-center"
-                  : "text-sky-100 hover:bg-sky-800 hover:text-white h-full flex items-center"
+                  ? "border-b-2 border-sky-300 text-white"
+                  : "text-sky-100 hover:border-b-2 hover:border-sky-300"
               }`}
             >
               {item.label}
@@ -89,12 +93,14 @@ export default function Navbar() {
       {/* Mobile Menu Dropdown */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-16 right-0 w-48">
-          <div className="bg-sky-800 shadow-lg">
+          <div className="bg-blue-900 bg-opacity-80 shadow-md rounded">
             {navItems.map((item) => {
               const isActive =
                 location.pathname === item.path ||
-                (item.id === "add" && location.pathname.startsWith("/publications/add")) ||
-                (item.id === "publications" && location.pathname === "/publications");
+                (item.id === "add" &&
+                  location.pathname.startsWith("/publications/add")) ||
+                (item.id === "publications" &&
+                  location.pathname === "/publications");
 
               if (item.id === "logout") {
                 return (
@@ -116,10 +122,10 @@ export default function Navbar() {
                   key={item.id}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block w-full text-center px-3 py-2 text-sm font-semibold transition-all duration-300 cursor-pointer ${
+                  className={`px-3 py-2 text-sm font-semibold transition-all duration-300 cursor-pointer ${
                     isActive
-                      ? "bg-white text-sky-900 shadow-md font-bold"
-                      : "text-sky-100 hover:bg-sky-700 hover:text-white"
+                      ? "border-b-2 border-sky-300 text-white"
+                      : "text-sky-100 hover:border-b-2 hover:border-sky-300"
                   }`}
                 >
                   {item.label}
