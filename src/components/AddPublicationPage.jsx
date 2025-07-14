@@ -18,6 +18,19 @@ export default function AddPublicationPage() {
             return;
         }
 
+const handleCoverChange = (e) => {
+  const file = e.target.files[0];
+  setCoverFile(file);
+  if (file) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
+  } else {
+    setPreviewUrl(null);
+  }
+};
 
     let coverUrl = "";
     if (coverFile) {

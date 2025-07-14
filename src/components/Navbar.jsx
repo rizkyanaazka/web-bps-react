@@ -3,8 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from '../hooks/useAuth';
 
   const navItems = [
-    { key: "publications", label: "Daftar" },
-    { key: "add", label: "Tambah" },
+       { id: 'publications', label: 'Daftar Publikasi', path: "/publications" },
+    { id: 'add', label: 'Tambah Publikasi', path: "/publications/add" },
   ];
 
 
@@ -12,6 +12,8 @@ export default function Navbar() {
  const location = useLocation();
  const navigate = useNavigate();
   const { logoutAction } = useAuth();
+   const [isMenuOpen, setIsMenuOpen] = useState(false);
+   
 const navButtonClass = (target) =>
   `px-3 py-1 rounded ${
     (target === "publications" && location.pathname === "/publications") ||
