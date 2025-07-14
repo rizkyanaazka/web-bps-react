@@ -3,40 +3,29 @@ import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const { loginAction, error } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { loginAction, loading, error } = useAuth();
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [formError, setFormError] = useState(""); // untuk validasi form
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     // Validasi manual (frontend)
-    if (!email && !password) {
-      setFormError("Email dan password harus diisi!");
+  if (!email || !password) {
+      alert('Email dan password harus diisi!');
       return;
     }
-    if (!email) {
-      setFormError("Email harus diisi!");
-      return;
-    }
-    if (!password) {
-      setFormError("Password harus diisi!");
-      return;
-    }
-
-    setFormError(""); // reset error lokal jika semua input valid
-
+    
     try {
       await loginAction(email, password);
-      navigate("/publications");
+      // Redirect ke publications setelah login berhasil
+      navigate('/home');
     } catch (err) {
-      console.error("Login failed:", err);
-      // error dari backend sudah ditangani oleh `useAuth`
+      console.error('Login failed:', err);
     }
   };
+
 
   return (
     <main

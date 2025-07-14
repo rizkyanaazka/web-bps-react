@@ -1,30 +1,23 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { PublicationContext } from "../context/PublicationContext";
-import { uploadImageToCloudinary } from "../services/publicationService";
+import React, { useState } from 'react';
+import { usePublications } from '../hooks/usePublications';
+import { useNavigate } from 'react-router-dom';
+import { uploadImageToCloudinary } from '../services/publicationService';
 
 export default function AddPublicationPage() {
-  const { addPublication } = useContext(PublicationContext);
-  const navigate = useNavigate();
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [releaseDate, setReleaseDate] = useState('');
+    const [coverFile, setCoverFile] = useState(null);
+    const { addPublication } = usePublications();
+    const navigate = useNavigate();
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [releaseDate, setReleaseDate] = useState("");
-  const [coverFile, setCoverFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState(null);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!title || !releaseDate) {
+            alert('Judul dan Tanggal Rilis harus diisi!');
+            return;
+        }
 
-  const handleCoverChange = (e) => {
-    const file = e.target.files[0];
-    setCoverFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!title || !releaseDate) {
-      alert("Judul dan Tanggal Rilis harus diisi!");
-      return;
-    }
 
     let coverUrl = "";
     if (coverFile) {
