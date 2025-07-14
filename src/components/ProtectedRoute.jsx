@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 const ProtectedRoute = ({ children }) => { 
 const { user } = useAuth(); 
 // Jika user tidak login, redirect ke login page 
-if (!user) { 
+if (!token) { 
 return <Navigate to="/login" replace />; 
 } 
 // Jika user sudah login, tampilkan children 
