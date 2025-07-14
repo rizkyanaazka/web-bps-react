@@ -17,7 +17,7 @@ export default function App() {
     <div className="bg-gray-100 min-h-screen font-sans">
       {!isLoginPage && <Navbar />}
 
-      <main className="p-4 sm:p-6 lg:p-8">
+      <main className="p-4 sm:p-6 lg:p-8 mt-25">
         <Routes>
           {/* Public Route */}
           <Route path="/login" element={<LoginPage />} />
