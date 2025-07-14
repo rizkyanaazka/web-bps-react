@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState(null); // ✅ fix: state untuk formError
   const { loginAction, loading, error } = useAuth();
   const navigate = useNavigate();
 
@@ -13,13 +14,16 @@ export default function LoginPage() {
 
     // Validasi manual (frontend)
     if (!email || !password) {
-      alert("Email dan password harus diisi!");
+      setFormError("Email dan password harus diisi!");
       return;
+    } else {
+      setFormError(null); // reset error jika input terisi
     }
 
     try {
       await loginAction(email, password);
-      navigate("/publications"); // Ganti sesuai rute kamu
+      // Redirect ke publications setelah login berhasil
+      navigate("/publications");
     } catch (err) {
       console.error("Login failed:", err);
     }
@@ -31,9 +35,9 @@ export default function LoginPage() {
       style={{
         backgroundColor: "#6495ED",
         backgroundImage: `
-          linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.2)),
-          url('https://res.cloudinary.com/dqpffql8l/image/upload/v1752333202/pattern_fkv7a4.png')
-        `,
+      linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.2)),
+      url('https://res.cloudinary.com/dqpffql8l/image/upload/v1752333202/pattern_fkv7a4.png')
+    `,
         backgroundRepeat: "repeat",
         backgroundSize: "auto",
         backgroundBlendMode: "overlay",
@@ -47,6 +51,13 @@ export default function LoginPage() {
             className="h-16 w-auto mb-4"
           />
         </div>
+
+        {/* Validasi input lokal */}
+        {formError && (
+          <div className="mb-4 p-3 bg-yellow-100 border border-yellow-400 text-yellow-800 rounded-md text-sm">
+            {formError}
+          </div>
+        )}
 
         {/* Error dari backend */}
         {error && (
@@ -81,11 +92,8 @@ export default function LoginPage() {
               type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-2 border rounded"
               placeholder="Masukkan Email"
-              disabled={loading}
-              className={`w-full px-4 py-2 border rounded shadow-sm focus:ring-sky-500 focus:border-sky-500 ${
-                loading ? "bg-gray-100 cursor-not-allowed" : "border-gray-300"
-              }`}
             />
           </div>
 
@@ -101,52 +109,31 @@ export default function LoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Masukkan Password"
-              disabled={loading}
-              className={`w-full px-4 py-2 border rounded shadow-sm focus:ring-sky-500 focus:border-sky-500 ${
-                loading ? "bg-gray-100 cursor-not-allowed" : "border-gray-300"
-              }`}
+              className="w-full px-4 py-2 border rounded"
+              placeholder="Masukkan password"
             />
           </div>
 
           <button
             type="submit"
-            disabled={loading}
-            className={`w-full font-bold py-2 px-6 rounded-lg transition-colors duration-300 ${
-              loading
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-sky-700 hover:bg-sky-800 text-white"
-            }`}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded mt-10"
           >
-            {loading ? (
-              <div className="flex items-center justify-center">
-                <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                  ></path>
-                </svg>
-                Memproses...
-              </div>
-            ) : (
-              "Login"
-            )}
+            Login
           </button>
         </form>
+      </div>
+
+      <div className="mt-4 max-w-sm w-full p-4 rounded shadow border text-sm text-gray-700 bg-[#FFFFF0]">
+        <p className="font-semibold text-center mb-2">Demo Login</p>
+
+        <div className="flex mb-1">
+          <span className="ml-20 w-24 font-medium">Email</span>
+          <span>: user@example.com</span>
+        </div>
+        <div className="flex">
+          <span className="ml-20 w-24 font-medium">Password</span>
+          <span>: password123</span>
+        </div>
       </div>
     </main>
   );

@@ -1,5 +1,29 @@
 {
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/index.html" }
-    ]   
+    "version": 2,
+    "framework": null,
+    "functions": {
+        "api/index.php": { "runtime": "vercel-php@0.6.0" }
+    },
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/index.php"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.php"
+        }
+    ],
+    "env": {
+        "APP_ENV": "production",
+        "APP_DEBUG": "true",
+        "APP_URL": "https://bpsntt.vercel.app",
+        "APP_KEY": "base64:rUHrecJLcs/dGh5mTTHEMr8FMjcSgub6uqerVJ7miRs=",
+
+        "CACHE_DRIVER": "array",
+        "LOG_CHANNEL": "stderr",
+        "SESSION_DRIVER": "cookie",
+        
+        "VIEW_COMPILED_PATH": "/tmp"
+    }
 }
