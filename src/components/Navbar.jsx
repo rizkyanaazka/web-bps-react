@@ -5,7 +5,6 @@ import { useAuth } from '../hooks/useAuth';
   const navItems = [
     { key: "publications", label: "Daftar" },
     { key: "add", label: "Tambah" },
-     { id: 'logout', label: 'Logout', path: "/logout" },
   ];
 
 
