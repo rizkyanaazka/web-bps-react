@@ -68,19 +68,6 @@ export default function AddPublicationPage() {
 
   return (
     <>
-       <main
-className="min-h-screen flex flex-col items-center justify-center space-y-4"
-      style={{
-        backgroundColor: "#6495ED",
-        backgroundImage: `
-      linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.2)),
-      url('https://res.cloudinary.com/dqpffql8l/image/upload/v1752333202/pattern_fkv7a4.png')
-    `,
-      backgroundRepeat: "repeat",
-        backgroundSize: "auto",
-        backgroundBlendMode: "overlay",
-      }}
-    >
       <div
         className="h-40 flex items-center justify-center text-white text-2xl font-bold mb-8 mt-16"
         style={{
@@ -155,8 +142,6 @@ className="min-h-screen flex flex-col items-center justify-center space-y-4"
           </button>
         </div>
       </form>
-      </main>
     </>
-    
   );
 }
