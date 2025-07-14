@@ -10,22 +10,23 @@ const PublicationProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const { token } = useAuth();
 
-    // Simpan ke localStorage setiap kali publications berubah
+    const fetchPublications = async () => {
+        if (!token) return;
+        setLoading(true);
+        try {
+            const data = await publicationService.getPublications();
+            setPublications(data);
+            setError(null);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Jalankan sekali waktu mount
     useEffect(() => {
-        const fetchData = async () => {
-            if (!token) return;
-            setLoading(true);
-            try {
-                const data = await publicationService.getPublications();
-                setPublications(data);
-                setError(null);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
+        fetchPublications();
     }, [token]);
 
     const addPublication = async (newPub) => {
@@ -50,7 +51,6 @@ const PublicationProvider = ({ children }) => {
         }
     };
 
-
     const deletePublication = async (id) => {
         try {
             await publicationService.deletePublication(id);
@@ -62,13 +62,13 @@ const PublicationProvider = ({ children }) => {
         }
     };
 
-
     return (
         <PublicationContext.Provider
             value={{
                 publications,
                 loading,
                 error,
+                fetchPublications, // tambahkan ini
                 addPublication,
                 editPublication,
                 deletePublication,
