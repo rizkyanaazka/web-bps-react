@@ -3,33 +3,35 @@ import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState(null); // ✅ fix: state untuk formError
   const { loginAction, loading, error } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validasi manual (frontend)
-  if (!email || !password) {
-      alert('Email dan password harus diisi!');
+    if (!email || !password) {
+      setFormError("Email dan password harus diisi!");
       return;
+    } else {
+      setFormError(null); // reset error jika input terisi
     }
-    
+
     try {
       await loginAction(email, password);
       // Redirect ke publications setelah login berhasil
-      navigate('/publications');
+      navigate("/publications");
     } catch (err) {
-      console.error('Login failed:', err);
+      console.error("Login failed:", err);
     }
   };
 
-
   return (
     <main
-className="min-h-screen flex flex-col items-center justify-center space-y-4"
+      className="min-h-screen flex flex-col items-center justify-center space-y-4"
       style={{
         backgroundColor: "#6495ED",
         backgroundImage: `
@@ -49,10 +51,6 @@ className="min-h-screen flex flex-col items-center justify-center space-y-4"
             className="h-16 w-auto mb-4"
           />
         </div>
-
-        {/* <h2 className="text-xl font-bold mb-4 text-center text-gray-800 font-times-new-roman">
-          Login
-        </h2> */}
 
         {/* Validasi input lokal */}
         {formError && (
@@ -124,20 +122,19 @@ className="min-h-screen flex flex-col items-center justify-center space-y-4"
           </button>
         </form>
       </div>
+
       <div className="mt-4 max-w-sm w-full p-4 rounded shadow border text-sm text-gray-700 bg-[#FFFFF0]">
-  <p className="font-semibold text-center mb-2">Demo Login</p>
+        <p className="font-semibold text-center mb-2">Demo Login</p>
 
-  <div className="flex mb-1">
-    <span className="ml-20 w-24 font-medium">Email</span>
-    <span>: user@example.com</span>
-  </div>
-  <div className="flex">
-    <span className="ml-20 w-24 font-medium">Password</span>
-    <span>: password123</span>
-  </div>
-</div>
-
+        <div className="flex mb-1">
+          <span className="ml-20 w-24 font-medium">Email</span>
+          <span>: user@example.com</span>
+        </div>
+        <div className="flex">
+          <span className="ml-20 w-24 font-medium">Password</span>
+          <span>: password123</span>
+        </div>
+      </div>
     </main>
   );
 }
-
