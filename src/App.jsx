@@ -1,7 +1,5 @@
-// src/App.jsx
-
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import PublicationListPage from "./components/PublicationListPage";
 import AddPublicationPage from "./components/AddPublicationPage";
@@ -11,9 +9,14 @@ import EditPublicationPage from "./components/EditPublicationPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
+  const location = useLocation();
+
+  const isLoginPage = location.pathname === "/login";
+
   return (
     <div className="bg-gray-100 min-h-screen font-sans">
-      <Navbar />
+      {!isLoginPage && <Navbar />}
+
       <main className="p-4 sm:p-6 lg:p-8">
         <Routes>
           {/* Public Route */}
@@ -50,7 +53,8 @@ export default function App() {
           <Route path="*" element={<Navigate to="/publications" replace />} />
         </Routes>
       </main>
-      <Footer />
+
+      {!isLoginPage && <Footer />}
     </div>
   );
 }
